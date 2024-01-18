@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<div class="card">
+  <div class="card-header">Add product</div>
+  <div class="card-body">
+    <form method="post" action="{% url 'shop:add' %}" enctype="multipart/form-data">{% csrf_token %}
+      <div class="form-group">
+        <label for="exampleInputEmail1">Product name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="id_name"
+          placeholder="name ..."
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Product description</label>
+        <input
+          type="text"
+          class="form-control"
+          name="description"
+          id="id_description"
+          placeholder="description ..."
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Product price</label>
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          id="id_price"
+          placeholder="price ..."
+        />
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Product address</label>
+        <input
+          type="text"
+          class="form-control"
+          name="address"
+          id="id_address"
+          placeholder="address ..."
+        />
+      </div>
+      <br/>
+      <div class="input-group">
+        <div class="custom-file">
+          Select product image : 
+          <input
+            type="file"
+            class="custom-file-input"
+            name="pic"
+            id="id_pic"
+            aria-describedby="inputGroupFileAddon01"
+          />
+        </div>
+      </div>
+      <br/>
+
+      <br><button type="submit" class="btn btn-primary" value="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
