@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Product
 from .forms import ProductForm,SignupForm
 from django.contrib.auth import authenticate, login , logout
@@ -26,6 +26,10 @@ def add_product_view(request):
             return redirect('shop:add')
     form = ProductForm()
     return render(request, 'shop/add_product.html',{'form':form})
+
+def product_view(request,pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request,'shop/single.html',{'prod':product})
 
 def sign_up(request):
     if request.user.is_authenticated:
