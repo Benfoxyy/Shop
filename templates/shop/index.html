@@ -45,7 +45,11 @@
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-              <a class="btn btn-outline-dark mt-auto" href="{% url 'shop:single' pk=prod.id %}">details/purchase</a>
+              <a
+                class="btn btn-outline-dark mt-auto"
+                href="{% url 'shop:single' pk=prod.id %}"
+                >details/purchase</a
+              >
             </div>
           </div>
         </div>
@@ -54,5 +58,50 @@
     </div>
   </div>
 </section>
+
+<nav aria-label="..." class="d-flex justify-content-center">
+  <ul class="pagination">
+    {% if products.has_previous %}
+    <li class="page-item">
+      <a
+        class="page-link p-3 mb-2 bg-dark text-white"
+        href="?page=1"
+        tabindex="-1"
+        >First</a
+      >
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link p-3 mb-2 bg-dark text-white"
+        href="?page={{ products.previous_page_number }}"
+        >{{ products.previous_page_number }}</a
+      >
+    </li>
+    {% endif %}
+    <li class="page-item">
+      <a
+        class="page-link p-3 mb-2 bg-light text-dark"
+        href="?page={{ products.number }}"
+        >{{ products.number }}<span class="sr-only"></span
+      ></a>
+    </li>
+    {% if products.has_next %}
+    <li class="page-item">
+      <a
+        class="page-link p-3 mb-2 bg-dark text-white"
+        href="?page={{ products.next_page_number }}"
+        >{{ products.next_page_number }}</a
+      >
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link p-3 mb-2 bg-dark text-white"
+        href="?page={{ products.paginator.num_pages }}"
+        >Last</a
+      >
+    </li>
+    {% endif %}
+  </ul>
+</nav>
 
 {% endblock body %}
