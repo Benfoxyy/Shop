@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>BenShop</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <!-- Bootstrap icons-->
@@ -50,13 +50,14 @@
             href="#"
             role="button"
             data-bs-toggle="dropdown"
-            aria-expanded="false">Categiries
+            aria-expanded="false">Categories
             </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#!">All Products</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+            <li><a class="dropdown-item" href="/">All Products</a></li>
+            <li><hr class="dropdown-divider"/></li>
+            <li><a class="dropdown-item" href="{% url 'shop:category' 'Digitals' %}">Digitals</a></li>
+            <li><a class="dropdown-item" href="{% url 'shop:category' 'Clothings' %}">Clothings</a></li>
+            <li><a class="dropdown-item" href="{% url 'shop:category' 'Edibles' %}">Edibles</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="{% url "shop:add" %}"><img src="{% static 'assets/icons8-plus-30.png' %}" alt="..."></a></li>

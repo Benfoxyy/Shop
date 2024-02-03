@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Product
+from .models import Product , Category
 from .forms import ProductForm,SignupForm
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
@@ -7,17 +7,33 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required(login_url='login')
-def index_view(request):
-    p = Paginator(Product.objects.all(),8)
-    page_number = request.GET.get('page')
-    try:
-        page_obj = p.get_page(page_number)  # returns the desired page object
-    except PageNotAnInteger:
-        # if page_number is not an integer then assign the first page
-        page_obj = p.page(1)
-    except EmptyPage:
-        page_obj = p.page(p.num_pages)
-    return render(request, 'shop/index.html',{'products':page_obj})
+def index_view(request,cat=None):
+    if cat:
+        cat = cat.replace('-',' ')
+        category = Category.objects.get(name=cat)
+        p = Paginator(Product.objects.filter(Category=category),8)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)  # returns the desired page object
+        except PageNotAnInteger:
+            # if page_number is not an integer then assign the first page
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+    
+        return render(request, 'shop/index.html',{'products':page_obj, 'category':category})
+    else:
+        p = Paginator(Product.objects.all(),8)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)  # returns the desired page object
+        except PageNotAnInteger:
+            # if page_number is not an integer then assign the first page
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+    
+        return render(request, 'shop/index.html',{'products':page_obj})
 
 @login_required(login_url='login')
 def add_product_view(request):
