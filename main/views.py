@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Product , Category
+from .models import Product , Category , Wishlist
 from .forms import ProductForm,SignupForm
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required(login_url='login')
 def index_view(request,cat=None):
+    user = Wishlist.objects.get(user = request.user.id)
+    wishs = user.wished_items.all()
     if cat:
         cat = cat.replace('-',' ')
         category = Category.objects.get(name=cat)
@@ -21,7 +23,7 @@ def index_view(request,cat=None):
         except EmptyPage:
             page_obj = p.page(p.num_pages)
     
-        return render(request, 'shop/index.html',{'products':page_obj, 'category':category})
+        return render(request, 'shop/index.html',{'products':page_obj, 'category':category,'wishlist':wishs})
     else:
         p = Paginator(Product.objects.all(),8)
         page_number = request.GET.get('page')
@@ -32,8 +34,10 @@ def index_view(request,cat=None):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
+
+
     
-        return render(request, 'shop/index.html',{'products':page_obj})
+        return render(request, 'shop/index.html',{'products':page_obj,'wishlist':wishs})
 
 @login_required(login_url='login')
 def add_product_view(request):
@@ -54,7 +58,10 @@ def add_product_view(request):
 
 def product_view(request,pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request,'shop/single.html',{'prod':product})
+    user = Wishlist.objects.get(user = request.user.id)
+    wishs = user.wished_items.all()
+
+    return render(request,'shop/single.html',{'prod':product,'wishlist':wishs})
 
 def sign_up(request):
     if request.user.is_authenticated:
@@ -72,3 +79,13 @@ def sign_up(request):
                 return redirect('shop:sign_up')
         form = SignupForm()
     return render(request, 'registration/sign_up.html',{'form':form})
+
+@login_required(login_url='login')
+def wishlist_view(request):
+    user = Wishlist.objects.get(user = request.user.id)
+    wishs = user.wished_items.all()
+
+    return render(request, 'wishlist/wishlist.html',{'wishlist':wishs})
+
+def add_wishlist_view(request):
+    return redirect('/')

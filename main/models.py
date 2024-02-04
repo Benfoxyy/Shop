@@ -16,7 +16,6 @@ class Product(models.Model):
     pic = models.ImageField(upload_to='product_pic/',blank=False,null=False)
     created_date = models.DateTimeField(auto_now_add=True)
     #offer
-    #category
     class Meta:
         ordering = ['created_date']
     def __str__(self):
@@ -24,3 +23,10 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse('shop:single',kwargs={'pk':self.id})
+    
+class Wishlist(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    wished_items = models.ManyToManyField(Product,blank=True)
+    add_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.user.username

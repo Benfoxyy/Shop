@@ -62,14 +62,12 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="{% url "shop:add" %}"><img src="{% static 'assets/icons8-plus-30.png' %}" alt="..."></a></li>
       </ul>
-
-      <form class="d-flex">{% csrf_token %}
-        <button class="btn btn-outline-dark" type="submit">
+<a href="{% url 'shop:wishlist' %}">
+        <button class="btn btn-outline-dark">
           <i class="bi-cart-fill me-1"></i>
-          Cart
-          <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-        </button>
-      </form>
+          Wishlist
+          <span class="badge bg-dark text-white ms-1 rounded-pill">{{ wishlist|length }}</span>
+        </button></a>
     </div>
   </div>
 </nav>
