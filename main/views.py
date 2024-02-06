@@ -56,6 +56,7 @@ def add_product_view(request):
     form = ProductForm()
     return render(request, 'shop/add_product.html',{'form':form})
 
+@login_required(login_url='login')
 def product_view(request,pk):
     product = get_object_or_404(Product, pk=pk)
     user = Wishlist.objects.get(user = request.user.id)
@@ -87,5 +88,9 @@ def wishlist_view(request):
 
     return render(request, 'wishlist/wishlist.html',{'wishlist':wishs})
 
-def add_wishlist_view(request):
+@login_required(login_url='login')
+def add_wishlist_view(request,wish):
+    userr = Wishlist.objects.get(user=request.user.id)
+    wishes = userr.wished_items.add(wish)
+
     return redirect('/')
