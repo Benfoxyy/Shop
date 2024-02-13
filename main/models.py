@@ -25,8 +25,8 @@ class Product(models.Model):
         return reverse('shop:single',kwargs={'pk':self.id})
     
 class Wishlist(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    wished_items = models.ManyToManyField(Product,blank=True)
+    users = models.ForeignKey(User,on_delete=models.CASCADE)
+    wished_items = models.ManyToManyField(Product,blank=True,null=True)
     add_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.user.username
+        return self.users.username
