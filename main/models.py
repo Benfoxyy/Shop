@@ -15,6 +15,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     pic = models.ImageField(upload_to='product_pic/',blank=False,null=False)
     created_date = models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=12)
     #offer
     class Meta:
         ordering = ['created_date']

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['seller', 'name', 'description', 'price','pic']
+        fields = ['seller', 'name', 'description', 'price','phone_number','Category','pic']
 
         widgets = {
             'seller' : forms.TextInput(attrs={'class': 'form-control','type': 'hidden'}),

@@ -37,21 +37,31 @@
       </div>
       <br>
       <div class="form-group">
-        <label for="formGroupExampleInput">Product address</label>
+        <label for="formGroupExampleInput">Phone number of seller</label>
         <input
           type="text"
           class="form-control"
-          name="address"
-          id="id_address"
-          placeholder="address ..."
+          name="phone_number"
+          id="id_phone_number"
+          placeholder="Phone number ..."
         />
       </div>
+      <br/>
+      <div class="form-group">
+        <label class="form-label">Choose your browser from the list:</label>
+        <input class="form-control" name="Category" id="id_Category">
+        <select class="form-select">
+        {% for cat in categories %}
+          <option>{{ cat }}<option/>
+        {% endfor %}
+        </select> 
+      </div>    
       <br/>
       <div class="input-group">
         <div class="custom-file">
           Select product image : 
           <input
-            type="file"
+            type=""
             class="custom-file-input"
             name="pic"
             id="id_pic"

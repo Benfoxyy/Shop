@@ -42,29 +42,12 @@ def index_view(request,cat=None):
 
     
         return render(request, 'shop/index.html',{'products':page_obj,'wishss':wishs})
-
-@login_required(login_url='login')
-def add_product_view(request):
     
-    if request.method == 'POST':
-        form = ProductForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            obj=form.save(commit=False)
-            obj.seller = request.user
-            obj.save()
-            messages.success(request, 'Product added successfully!')
-            return redirect('/')
-        else:
-            messages.error(request, 'Somthing went wrong! | Please try again correctly')
-            return redirect('shop:add')
-    form = ProductForm()
-    return render(request, 'shop/add_product.html',{'form':form})
-
 @login_required(login_url='login')
 def product_view(request,pk):
     product = get_object_or_404(Product, pk=pk)
     try:
-        userr= Wishlist.objects.ge(users = request.user.id)
+        userr= Wishlist.objects.get(users = request.user.id)
         wishs = len(userr.wished_items.all())
     except Wishlist.DoesNotExist:
         wishs = 0
