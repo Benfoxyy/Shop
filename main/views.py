@@ -61,14 +61,16 @@ def sign_up(request):
         if request.method == 'POST':
             form = SignupForm(request.POST)
             if form.is_valid():
-                user = form.save()
-                login(request,user)
+                u = form.save()
+                login(request,u)
                 messages.add_message(request,messages.SUCCESS,'Registration Successfully Complete!')
                 return redirect('/')
             else:
-                messages.error(request, 'Somthing went wrong! | Please try again correctly')
-                return redirect('shop:sign_up')
-        form = SignupForm()
+                messages.error(request,"Username : Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.")
+                messages.error(request,"Password : yor password must contain at least 8 characters. | can't be entirely numeric")
+#                return redirect('shop:sign_up')
+        else:
+            form = SignupForm()
     return render(request, 'registration/sign_up.html',{'form':form})
 
 @login_required(login_url='login')
