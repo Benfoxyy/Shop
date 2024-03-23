@@ -1,16 +1,15 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Product , Category , Wishlist
-from .forms import ProductForm,SignupForm
+from .forms import SignupForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required(login_url='login')
-def index_view(request,cat=None):
+def index_view(request,cat=None,name=None):
     try:
         userr, created = Wishlist.objects.get_or_create(users = request.user)
-        print(created)
         wishs = len(userr.wished_items.all())
     except Wishlist.DoesNotExist:
         wishs = 0
@@ -78,11 +77,27 @@ def wishlist_view(request):
         userr= Wishlist.objects.get(users = request.user.id)
         wishs = len(userr.wished_items.all())
         wishes = userr.wished_items.all()
+
+        total=0
+        for i in wishes:
+            total+=i.price
     except Wishlist.DoesNotExist:
         wishs = 0
         wishes = []
 
-    return render(request, 'wishlist/wishlist.html',{'wishss':wishs,'wishes':wishes})
+
+    return render(request, 'wishlist/wishlist.html',{'wishss':wishs,'wishes':wishes,'total':total})
+
+@login_required(login_url='login')
+def delete_wish(request,name=None):
+    person=request.user.username
+    u=Wishlist.objects.get(users__username=person)
+    u.wished_items.remove(name)
+    
+
+
+
+    return redirect('shop:wishlist')
 
 @login_required(login_url='login')
 def add_wishlist_view(request,wish):

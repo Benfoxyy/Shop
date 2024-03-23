@@ -16,8 +16,7 @@
 					        	<tr>
 					        		<th width="45%">Product Name</th>
 					        		<th width="15%">Unit Price</th>
-					        		<th width="15%">Stock Status</th>
-					        		<th width="15%"></th>
+					        		<th width="15%">Details</th>
 					        		<th width="10%"></th>
 					        	</tr>
 					        </thead>
@@ -36,11 +35,21 @@
 	                                </td>
 					        		<td width="15%" class="price">${{ wish.price }}</td>
 					        		<td width="15%"><a href="{% url 'shop:single' wish.id %}"><button class="round-black-btn small-btn">View</button></a></td>
-					        		<td width="10%" class="text-center"><a href="#" class="trash-icon"><i class="far fa-trash-alt"></i></a></td>
+					        		<td width="15%" class="text-center"><a href="{% url 'shop:delete' name=wish.id %}"><img src="{% static 'images/garbage.png' %}" alt="..."></a></td>
 					        	</tr>
                                 {% endfor %}
 				        	</tbody>
 				        </table>
+						<div class="card text-center">
+							<div class="card-header">
+								<h2>Total<h2>
+							</div>
+							<div class="card-body">
+							  <h1 class="card-title">${{ total }}</h1>
+							  <br><br>
+							  <a href="#" class="btn btn-dark btn-lg">payment</a>
+							</div>
+						  </div>
 				    </div>
 			    </div>
 			</div>
