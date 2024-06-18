@@ -6,12 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-@login_required(login_url='login')
+
 def index_view(request,cat=None,name=None):
-    try:
-        userr, created = Wishlist.objects.get_or_create(users = request.user)
-        wishs = len(userr.wished_items.all())
-    except Wishlist.DoesNotExist:
+    if request.user.is_authenticated:
+        try:
+            userr, created = Wishlist.objects.get_or_create(users = request.user)
+            wishs = len(userr.wished_items.all())
+        except Wishlist.DoesNotExist:
+            wishs = 0
+    else:
         wishs = 0
     if cat:
         cat = cat.replace('-',' ')
@@ -42,7 +45,7 @@ def index_view(request,cat=None,name=None):
     
         return render(request, 'shop/index.html',{'products':page_obj,'wishss':wishs})
     
-@login_required(login_url='login')
+
 def product_view(request,pk):
     product = get_object_or_404(Product, pk=pk)
     try:
@@ -95,9 +98,6 @@ def delete_wish(request,name=None):
     person=request.user.username
     u=Wishlist.objects.get(users__username=person)
     u.wished_items.remove(name)
-    
-
-
 
     return redirect('shop:wishlist')
 
@@ -110,3 +110,7 @@ def add_wishlist_view(request,wish):
         wishs = 0
 
     return redirect('/')
+
+@login_required(login_url='login')
+def success_view(request):
+    return render(request,'purche/success.html')

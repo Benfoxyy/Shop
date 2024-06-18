@@ -1,4 +1,10 @@
 {% extends "base.html" %} {% block body %}
+<style>
+  #purche {
+  text-decoration: none;
+  color: white;
+}
+</style>
 <section style="background-color: #eee">
   <div class="container py-5">
     <div class="row justify-content-center">
@@ -26,7 +32,7 @@
               <span>${{ prod.price }}</span>
             </div><br>
             <div class="d-grid gap-2">
-              <a href="{% url 'shop:add_wishlist' prod.id %}" class="text-center"><button class="btn btn-dark btn-lg btn-block" type="button">Add to wishlist</button></a>
+              <button class="btn btn-dark btn-lg btn-block" type="button"><a href="{% url 'shop:add_wishlist' prod.id %}" class="text-center" id="purche">Add to wishlist</a></button>
             </div>
           </div>
         </div>
