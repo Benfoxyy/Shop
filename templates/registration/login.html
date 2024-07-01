@@ -24,11 +24,11 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
-                        <a href="/sign-up" class="signup-image-link">Create an account</a>
+                        <a href="{% url 'accounts:signup' %}" class="signup-image-link">Create an account</a>
                     </div>
                     <div class="signin-form">
                         <h2 class="form-title">Sign in</h2>
-                        <form method="POST" class="register-form" id="login-form" action="{% url 'login' %}">{% csrf_token %}
+                        <form method="post" class="register-form" id="login-form" action="{% url 'accounts:login' %}">{% csrf_token %}
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="username" name="username" id="id_username" placeholder="Your Name"/>
