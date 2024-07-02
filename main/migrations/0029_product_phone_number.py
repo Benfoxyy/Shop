@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0028_alter_wishlist_wished_items'),
+        ("main", "0028_alter_wishlist_wished_items"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='phone_number',
+            model_name="product",
+            name="phone_number",
             field=models.CharField(max_length=12, null=True),
         ),
     ]

@@ -1,6 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from .models import Product
 
+
 class ShopSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.5

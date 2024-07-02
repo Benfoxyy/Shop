@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0027_rename_user_wishlist_users'),
+        ("main", "0027_rename_user_wishlist_users"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='wishlist',
-            name='wished_items',
-            field=models.ManyToManyField(blank=True, null=True, to='main.Product'),
+            model_name="wishlist",
+            name="wished_items",
+            field=models.ManyToManyField(
+                blank=True, null=True, to="main.Product"
+            ),
         ),
     ]

@@ -9,13 +9,15 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('main', '0034_alter_wishlist_users'),
+        ("main", "0034_alter_wishlist_users"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='wishlist',
-            name='users',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.user'),
+            model_name="wishlist",
+            name="users",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="auth.user"
+            ),
         ),
     ]
